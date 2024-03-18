@@ -1,5 +1,5 @@
 package org.example;
 
 public class MyArraySizeException extends Exception{
-    public MyArraySizeException() {super("Неверный размер");}
+    public MyArraySizeException(String message) {super(message);}
 }

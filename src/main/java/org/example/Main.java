@@ -1,25 +1,59 @@
 package org.example;
 
 public class Main {
-    static int sizeA = 4;
-    static int sizeB = 4;
-    public static void check(String[][] array) throws MyArraySizeException {
-        if (array.length!= sizeA || array[0].length!= sizeB) throw new MyArraySizeException();
-    }
-    public static Integer getMain(String [][] array) throws MyArrayDataException, MyArraySizeException {
-        check(array);
-        Integer result = 0;
-        int i = 0;
-        int j = 0;
+    public static void main(String[] args) {
+
+        String[][] array = {
+
+                {"10", "20", "30", "40"},
+
+                {"50", "60", "70", "80"},
+
+                {"90", "100", "200", "300"},
+
+                {"400", "500", "600", "700"}
+
+        };
         try {
-            for (i = 0; i < array.length; i++) {
-                for (j = 0; j < array[0].length; j++) {
-                    result = result + Integer.parseInt(array[i][j]);
-                }
-            }
-        } catch (NumberFormatException ex) {
-            throw new MyArrayDataException ("Ошибка: " +i +"," +j);
+
+            int result = sumArrayElements(array);
+
+            System.out.println("Сумма элементов: " + result);
+
+        } catch (MyArraySizeException | MyArrayDataException e) {
+
+            System.out.println("Ошибка: " + e.getMessage());
+
         }
-        return result;
+
+    }
+    public static int sumArrayElements(String[][] array) throws MyArraySizeException, MyArrayDataException {
+
+        if (array.length != 4 || array[0].length != 4) {
+
+            throw new MyArraySizeException("Неверный размер");
+
+        }
+        int sum = 0;
+
+        for (int i = 0; i < array.length; i++) {
+
+            for (int j = 0; j < array[i].length; j++) {
+
+                try {
+
+                    sum += Integer.parseInt(array[i][j]);
+
+                } catch (NumberFormatException e) {
+
+                    throw new MyArrayDataException("Неверные данные (" + i + "," + j + ")");
+
+                }
+
+            }
+
+        }
+
+        return sum;
     }
 }
